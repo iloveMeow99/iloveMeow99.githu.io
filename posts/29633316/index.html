@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>React最佳实践（未完整，持续更新） | Yangyang's Blog</title><meta name="author" content="Yangyang"><meta name="copyright" content="Yangyang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="React最佳实践 – 2022年编写更好的React代码的技巧 🌠 本文非原创，为原文的中文翻译版 📖 原文地址：https:&amp;#x2F;&amp;#x2F;www.freecodecamp.org&amp;#x2F;news&amp;#x2F;best-practices-for-react&amp;#x2F;  目录: React 开发者面临的三大挑战 了解 React"><link rel="shortcut icon" href="/images/cat.ico"><link rel="canonical" href="https://ly980408.github.io/posts/29633316/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":600,"position":"top","messagePrev":"温馨提示：距离文章上次更新已经过去","messageNext":"天了，部分内容可能会有出入，请留意。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Yangyang","link":"链接: ","source":"来源: Yangyang's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'React最佳实践（未完整，持续更新）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-23 15:49:53'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mystyle.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/ali.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-brands fa-fort-awesome"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-gamepad"></i><span> 好玩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="external nofollow noopener noreferrer" href="https://vue-wordle-beta.vercel.app/"><i class="fa-fw fa fa-keyboard"></i><span> Wordle</span></a></li><li><a class="site-page child" href="https://ly980408.github.io/GreedySnake/"><i class="fa-fw fa fa-cat"></i><span> 贪吃猫</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="external nofollow noopener noreferrer" href="https://travellings.cn/go.html"><i class="fa-fw fa fa-subway"></i><span> 开往</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/6087e1f1d1a9ae528f85e6bb.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Yangyang's Blog"><span class="site-name">Yangyang's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-brands fa-fort-awesome"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-gamepad"></i><span> 好玩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="external nofollow noopener noreferrer" href="https://vue-wordle-beta.vercel.app/"><i class="fa-fw fa fa-keyboard"></i><span> Wordle</span></a></li><li><a class="site-page child" href="https://ly980408.github.io/GreedySnake/"><i class="fa-fw fa fa-cat"></i><span> 贪吃猫</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="external nofollow noopener noreferrer" href="https://travellings.cn/go.html"><i class="fa-fw fa fa-subway"></i><span> 开往</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">React最佳实践（未完整，持续更新）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-30T05:14:00.000Z" title="发表于 2023-04-30 13:14:00">2023-04-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-11-23T07:49:53.199Z" title="更新于 2023-11-23 15:49:53">2023-11-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/React/">React</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id data-flag-title="React最佳实践（未完整，持续更新）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="React最佳实践-–-2022年编写更好的React代码的技巧"><a href="#React最佳实践-–-2022年编写更好的React代码的技巧" class="headerlink" title="React最佳实践 – 2022年编写更好的React代码的技巧"></a>React最佳实践 – 2022年编写更好的React代码的技巧</h1><blockquote>
+<p>🌠 本文非原创，为原文的中文翻译版</p>
+<p>📖 原文地址：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.freecodecamp.org/news/best-practices-for-react/">https://www.freecodecamp.org/news/best-practices-for-react/</a></p>
+</blockquote>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录:"></a>目录:</h2><ul>
+<li><a href="#React-开发者面临的三大挑战">React 开发者面临的三大挑战</a></li>
+<li><a href="#了解-React-的基础">了解 React 的基础</a></li>
+<li><a href="#学习如何构建整洁、高性能和可维护的React组件">学习如何构建整洁、高性能和可维护的 React 组件</a></li>
+<li><a href="#tips-to-help-you-write-better-react-code-the-cherries-on-top">Tips to Help You Write Better React Code – The Cherries on Top</a></li>
+<li><a href="#final-words">Final Words</a></li>
+</ul>
+<p>首先也是最重要的，你应该知道每一个 React 开发者需要去面对的<strong>三个主要挑战</strong>。这很重要因为当你意识到潜在的挑战时，你将会更加深入地理解这些最佳实践背后的原因。</p>
+<h2 id="React-开发者面临的三大挑战"><a href="#React-开发者面临的三大挑战" class="headerlink" title="React 开发者面临的三大挑战"></a>React 开发者面临的三大挑战</h2><h3 id="⚙️-可维护性"><a href="#⚙️-可维护性" class="headerlink" title="⚙️ 可维护性"></a>⚙️ 可维护性</h3><p>这与可复用性息息相关。在应用程序和组件非常轻量的时候，它们很容易维护。但是，一旦需求开始增长，组件就会变得非常复杂，因此维护性较差。</p>
+<p>我经常看到一个有许多不同情况代表不同结果的组件。JSX 充满条件渲染（三元运算符和简单<code>&amp;&amp;</code>运算符），根据条件添加 class names ，或者该组件使用巨大的<code>Switch</code>语句。有许多 props 和 state，每个都会造成不同的结果。</p>
+<p>在我看来，这些技术本身并没有错。但是我认为，当组件开始变得较低的可维护以及这些技术变得过度使用时，每个人都应该对自己产生一种感觉。我们将在本文后面学习如何更好地控制这种情况。</p>
+<p>问题（我也为此感到内疚）是组件越复杂、结果越不同（多态性），它就越难维护。</p>
+<p>老实说，根本原因往往是懒惰、经验不足或时间压力，无法适当地重构组件，使其更易于维护和更整洁。</p>
+<p>我看到的另一个关键因素是没有测试或测试很少。我知道，测试不是一个很多开发者喜爱的工作类型，但从长远来看，这确实可以帮助你。测试本身不会是这篇文章的主要话题，所以请留意我关于它的另一篇博客文章。</p>
+<h3 id="🧠-扎实理解-React"><a href="#🧠-扎实理解-React" class="headerlink" title="🧠 扎实理解 React"></a>🧠 扎实理解 React</h3><p>开发人员出现问题的另一个根本原因是对 React 如何在底层工作的基本理解不足。我也曾经这样。</p>
+<p>我见过很多人在没有坚实基础的情况下，过快地进入中级或高级概念。但这并不是 React 独有的。这是编程中的一个常见问题。</p>
+<p>对 React 没有扎实的理解也会给作为开发人员的您带来问题。我记得当我想使用不同的组件生命周期，但不知道如何实际使用它们时，我感到头疼。所以我不得不后退几步，深入探讨这个话题。</p>
+<p>因为我认为这是最重要的事情之一，所以我在下面的博客文章中专门用了整整一章来介绍它。</p>
+<h3 id="📈-可扩展性"><a href="#📈-可扩展性" class="headerlink" title="📈 可扩展性"></a>📈 可扩展性</h3><p>这项挑战与<em>可维护性</em>息息相关。它不仅针对 React，而是通常适用于软件开发中。</p>
+<p>我了解到，制作优秀的软件不仅仅是关于 UX（用户体验）、干净的代码模式或聪明的架构。对我来说，软件的质量也会随着它的扩展能力而上升或下降。</p>
+<p>对我来说，有很多东西可以提高软件的可扩展性。你将在这篇文章中学习我最重要的技巧。</p>
+<p>我认为，当您在设计组件和组织项目结构时考虑到<em>可维护性</em>和<em>可扩展性</em>的话，您不太可能最终出现需要进行重大重构的混乱代码。</p>
+<hr>
+<p>好了，现在让我们深入了解一些学习 React 的最佳实践。</p>
+<h2 id="了解-React-的基础"><a href="#了解-React-的基础" class="headerlink" title="了解 React 的基础"></a>了解 React 的基础</h2><p>正如我们在上面简要讨论的那样，表明了基础不仅与学习 React 有关，也与其他技术或编程语言有关。你不能在沙质地基上建造摩天大楼，却期望它坚固。</p>
+<p>这对你们中的许多人来说可能是显而易见的，但我见过一些开发人员在没有真正理解基础知识的情况下就跳到了 React 的中级或高级概念中。</p>
+<p>一般来说，Javascript 也是如此。我坚信，如果你在 Vanilla Javascript（指原生 JS）方面没有坚实的基础，那么学习 React 是没有意义的。</p>
+<p>所以，如果这听起来很熟悉，并且你正在考虑学习 React，但对 Vanilla Javascript 还不太熟悉，那么先花点时间加强 Javascript。这将在未来为你节省很多头痛和时间。</p>
+<p>如果你想复习的话，这是一个有用的指南：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.freecodecamp.org/news/top-javascript-concepts-to-know-before-learning-react/">top JavaScript concepts you need to know before diving into React</a></p>
+<p>但对我来说，仅仅了解基本知识是不够的，去了解 React 的底层原理是强制性的。如果你想成为一名优秀的 React 开发人员（我认为你是这样做的，因为你正在阅读这篇文章），你必须知道你正在使用的工具。这对作为开发人员的你和你的客户都是有益的。</p>
+<p>当然，你不可能无所不知，也不应该在这个话题上给自己施加压力。当你遇到实际问题并建立更多的项目时，你会学到越来越多的东西。但有了扎实的知识，你从一开始就全副武装。</p>
+<p>好吧，这很有道理。但你可能想知道，为了在 React 中打下坚实的基础，你到底需要知道什么？</p>
+<p>作为最低要求，您应该理解在官方的 React 文档中的<a target="_blank" rel="external nofollow noopener noreferrer" href="https://reactjs.org/docs/hello-world.html">主要概念章节</a>。</p>
+<p>你应该非常熟悉的另一章是关于<a target="_blank" rel="external nofollow noopener noreferrer" href="https://reactjs.org/docs/hooks-intro.html">Hooks</a>的那一章，因为它们已经成为一种惯例，并且被广泛使用，尤其是在第三方 React 包中。</p>
+<p>当然，你可能会更频繁地使用一些，比如<code>useState</code>和<code>useEffect</code>，但理解其他的，比如<code>useMemo</code>、<code>useCallback</code>或<code>useRef</code>也是必不可少的。</p>
+<p>还有另一章叫<a target="_blank" rel="external nofollow noopener noreferrer" href="https://reactjs.org/docs/accessibility.html">“高级指南”</a>，我一开始并不认为这是强制性的，但我强烈建议您在 React 之旅中掌握这些概念。</p>
+<p>和往常一样，当你已经有了一些实践经验时，通常更容易理解高级话题。但你越早了解这些事情越好。</p>
+<p>当然，你不应该局限于只关注 React 文档。通过一门涵盖这些基础知识的在线课程，观看教程或阅读其他博客文章，也是打下坚实基础的一部分。所以，测试一下什么最适合你。</p>
+<p>如果我不得不选择至少最重要的概念来了解，我会建议：</p>
+<ul>
+<li>什么是“状态”</li>
+<li>类组件和函数式组件的区别</li>
+<li>什么是组件重新渲染，它们是如何工作的？</li>
+<li>如何触发重新渲染？</li>
+<li>不同的组件生命周期以及如何与它们交互</li>
+<li>Virtual DOM</li>
+<li>CSR（客户端渲染）和 SSR（服务器端渲染）一般来说在 React 中的优势</li>
+<li>受控组件和非受控组件</li>
+<li>状态提升</li>
+<li>至少一种全局状态管理技术（Context API、Redux/Toolkit、Recoil）</li>
+<li>组件模式（尤其是如何选择正确的模式）</li>
+</ul>
+<h2 id="学习如何构建整洁、高性能和可维护的-React-组件"><a href="#学习如何构建整洁、高性能和可维护的-React-组件" class="headerlink" title="学习如何构建整洁、高性能和可维护的 React 组件"></a>学习如何构建整洁、高性能和可维护的 React 组件</h2><p>我知道——这是每个程序员的梦想（或者至少我希望是这样）。<br>对我来说，这种能力将好的程序员与出色的程序员区分开来。有趣的是，它从来没有真正完成，因为总会有一些需要学习和改进的东西。</p>
+<p>遵循这些最佳实践不仅会让你，也会让你的队友更容易做到这点。我见过一些创建了风格指南的开发团队，他们定义了如何编写代码的重要基石。在我看来这是个好主意。</p>
+<p>其中一部分是：</p>
+<ul>
+<li>使用函数式组件（例如箭头函数）</li>
+<li>不要使用内联样式</li>
+<li>保持适当的导入结构（第三方导入优先 –&gt; 内部导入在下面）</li>
+<li>在提交之前格式化你的代码</li>
+</ul>
+<p>等等。</p>
+<p>当然，你可以做到非常详细。这取决你的团队。我个人不喜欢十分详细的风格指南，因为我认为作为一名熟练的开发者，你应该保持一些自由，不应该受太多限制。</p>
+<p>但是，一般来说，样式指南是一个描述和保持最佳实践的好方法，并确保您的团队在有关某些重要部分时保持一致。我认为这会大大增加团队合作和产出。</p>
+<p>让我们来看看创建干净、高性能和可维护的组件的最佳实践是什么。让自己感到舒适，找点东西做笔记，然后享受吧！</p>
+<h3 id="📁-创建合适的文件夹结构"><a href="#📁-创建合适的文件夹结构" class="headerlink" title="📁 创建合适的文件夹结构"></a>📁 创建合适的文件夹结构</h3><p>在 React 应用程序中组织文件和文件夹对于可维护性和可扩展性是十分必要的。</p>
+<p>良好的文件夹结构取决于您的应用程序和团队的大小。因此，这并没有一个普遍的答案。尤其是因为这是一个非常固执己见的话题，也取决于个人喜好。</p>
+<!-- TODO: translate -->
+
+<p>But over the time, some best practices for different sizes of an application have evolved.</p>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.robinwieruch.de/react-folder-structure/">This great blog post</a> goes through five different application sizes and introduces good ideas of how to organize your files and folders. Having this in mind when planning or starting your application can make a huge difference on the long run.</p>
+<p>Don’t over-engineer it, but try your best maintain a proper structure that is best suited for your current application and your team size.</p>
+<h3 id="👇-Maintain-a-structured-import-order"><a href="#👇-Maintain-a-structured-import-order" class="headerlink" title="👇 Maintain a structured import order"></a>👇 Maintain a structured import order</h3><p>If you’ve already got some experience in React, you might have seen files that are bloated with a lot of import statements. They might also be mixed up with external imports from third-party packages and internal imports like other components, util functions, styles and many more.</p>
+<p>Real World Example (cut):</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useEffect, useCallback &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Typography <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/Typography&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Divider <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/Divider&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Title <span class="keyword">from</span> <span class="string">&quot;../components/Title&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Navigation <span class="keyword">from</span> <span class="string">&quot;../components/Navigation&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> DialogActions <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/DialogActions&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; getServiceURL &#125; <span class="keyword">from</span> <span class="string">&#x27;../../utils/getServiceURL&quot;;</span></span><br><span class="line"><span class="string">import Grid from &quot;@material-ui/core/Grid&quot;;</span></span><br><span class="line"><span class="string">import Paragraph from &quot;../components/Paragprah&quot;;</span></span><br><span class="line"><span class="string">import &#123; sectionTitleEnum &#125; from &quot;../../constants&quot;;</span></span><br><span class="line"><span class="string">import &#123; useSelector, useDispatch &#125; from &quot;react-redux&quot;;</span></span><br><span class="line"><span class="string">import Box from &quot;@material-ui/core/Box&quot;;</span></span><br><span class="line"><span class="string">import axios from &#x27;</span>axios<span class="string">&#x27;;</span></span><br><span class="line"><span class="string">import &#123; DatePicker &#125; from &quot;@material-ui/pickers&quot;;</span></span><br><span class="line"><span class="string">import &#123; Formik &#125; from &quot;formik&quot;;</span></span><br><span class="line"><span class="string">import CustomButton from &quot;../components/CustomButton&quot;;</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+<p><em>In reality the imports span over 55 lines.</em></p>
+<p>You probably recognize the deal here. It’s difficult to distinguish what are all the third-party and the local (internal) imports. They are not grouped and seem to be all over the place.</p>
+<p>Better Version:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useEffect, useCallback &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useSelector, useDispatch &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Formik &#125; <span class="keyword">from</span> <span class="string">&quot;formik&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Typography <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/Typography&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Divider <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/Divider&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Box <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/Box&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> DialogActions <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/DialogActions&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Grid <span class="keyword">from</span> <span class="string">&quot;@material-ui/core/Grid&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; DatePicker &#125; <span class="keyword">from</span> <span class="string">&quot;@material-ui/pickers&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; getServiceURL &#125; <span class="keyword">from</span> <span class="string">&#x27;../../utils/getServiceURL&quot;;</span></span><br><span class="line"><span class="string">import &#123; sectionTitleEnum &#125; from &quot;../../constants&quot;;</span></span><br><span class="line"><span class="string">import CustomButton from &quot;../components/CustomButton&quot;;</span></span><br><span class="line"><span class="string">import Title from &quot;../components/Title&quot;;</span></span><br><span class="line"><span class="string">import Navigation from &quot;../components/Navigation&quot;;</span></span><br><span class="line"><span class="string">import Paragraph from &quot;../components/Paragraph&quot;;</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
+
+<p>The structure is clearer and it’s very easy to distinguish where the external and internal imports are. Of course you can optimize it more if you are using more named imports (if that’s possible! :) ). That allows you to import all the components that are coming from material-ui all on one line.</p>
+<p>I’ve seen other developers who like to split the import structure up in three different parts:</p>
+<p>Built-In (like ‘react’) –&gt; External (third-party node modules) –&gt; Internal.</p>
+<p>You can manage it every time by yourself or let a linter do the job. <a target="_blank" rel="external nofollow noopener noreferrer" href="https://dev.to/otamnitram/sorting-your-imports-correctly-in-react-213m">Here’s</a> a great article about how to configure your linter for your React app to maintain a proper import structure.</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%8C%87%E5%8D%97/">指南</a><a class="post-meta__tags" href="/tags/React/">React</a><a class="post-meta__tags" href="/tags/%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">最佳实践</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/6087e1f1d1a9ae528f85e6bb.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/airbnb-javascript-style-guide-cn/" title="Airbnb JavaScript 风格指南(中文版)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.imgdb.cn/item/608adf93d1a9ae528f37b005.jpg" onerror="onerror=null;src='https://img.imgdb.cn/item/60881523d1a9ae528f40adf2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Airbnb JavaScript 风格指南(中文版)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/airbnb-javascript-style-guide-cn/" title="Airbnb JavaScript 风格指南(中文版)"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.imgdb.cn/item/608adf93d1a9ae528f37b005.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2023-11-23</div><div class="title">Airbnb JavaScript 风格指南(中文版)</div></div></a></div></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#React%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5-%E2%80%93-2022%E5%B9%B4%E7%BC%96%E5%86%99%E6%9B%B4%E5%A5%BD%E7%9A%84React%E4%BB%A3%E7%A0%81%E7%9A%84%E6%8A%80%E5%B7%A7"><span class="toc-number">1.</span> <span class="toc-text">React最佳实践 – 2022年编写更好的React代码的技巧</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">1.1.</span> <span class="toc-text">目录:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-%E5%BC%80%E5%8F%91%E8%80%85%E9%9D%A2%E4%B8%B4%E7%9A%84%E4%B8%89%E5%A4%A7%E6%8C%91%E6%88%98"><span class="toc-number">1.2.</span> <span class="toc-text">React 开发者面临的三大挑战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7"><span class="toc-number">1.2.1.</span> <span class="toc-text">⚙️ 可维护性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%A7%A0-%E6%89%8E%E5%AE%9E%E7%90%86%E8%A7%A3-React"><span class="toc-number">1.2.2.</span> <span class="toc-text">🧠 扎实理解 React</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%88-%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="toc-number">1.2.3.</span> <span class="toc-text">📈 可扩展性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%86%E8%A7%A3-React-%E7%9A%84%E5%9F%BA%E7%A1%80"><span class="toc-number">1.3.</span> <span class="toc-text">了解 React 的基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%95%B4%E6%B4%81%E3%80%81%E9%AB%98%E6%80%A7%E8%83%BD%E5%92%8C%E5%8F%AF%E7%BB%B4%E6%8A%A4%E7%9A%84-React-%E7%BB%84%E4%BB%B6"><span class="toc-number">1.4.</span> <span class="toc-text">学习如何构建整洁、高性能和可维护的 React 组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%93%81-%E5%88%9B%E5%BB%BA%E5%90%88%E9%80%82%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9%E7%BB%93%E6%9E%84"><span class="toc-number">1.4.1.</span> <span class="toc-text">📁 创建合适的文件夹结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%F0%9F%91%87-Maintain-a-structured-import-order"><span class="toc-number">1.4.2.</span> <span class="toc-text">👇 Maintain a structured import order</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yangyang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="external nofollow noopener noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"> <div style="padding-top:8px"> <a href="https://www.travellings.cn/go.html" target="_blank" rel="external nofollow noopener noreferrer" title="开往-友链接力"> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://www.travellings.cn/assets/logo.svg" alt="开往-友链接力" width="120"> </a> </div> </div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'B9Q3diyUrpnSeEpvTYPXhVuW-gzGzoHsz',
+      appKey: '0lzTnKjh5pP2zIhaQYSGyvwE',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

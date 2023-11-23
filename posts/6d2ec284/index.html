@@ -1,0 +1,242 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>JavaScript 实现图片滚动 | Yangyang's Blog</title><meta name="author" content="Yangyang"><meta name="copyright" content="Yangyang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="js应用定时器实现图片无缝滚动的方法思路，代码。"><link rel="shortcut icon" href="/images/cat.ico"><link rel="canonical" href="https://ly980408.github.io/posts/6d2ec284/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":600,"position":"top","messagePrev":"温馨提示：距离文章上次更新已经过去","messageNext":"天了，部分内容可能会有出入，请留意。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Yangyang","link":"链接: ","source":"来源: Yangyang's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JavaScript 实现图片滚动',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-23 15:09:13'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mystyle.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/ali.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-brands fa-fort-awesome"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-gamepad"></i><span> 好玩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="external nofollow noopener noreferrer" href="https://vue-wordle-beta.vercel.app/"><i class="fa-fw fa fa-keyboard"></i><span> Wordle</span></a></li><li><a class="site-page child" href="https://ly980408.github.io/GreedySnake/"><i class="fa-fw fa fa-cat"></i><span> 贪吃猫</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="external nofollow noopener noreferrer" href="https://travellings.cn/go.html"><i class="fa-fw fa fa-subway"></i><span> 开往</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/6087e1f1d1a9ae528f85e6bb.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Yangyang's Blog"><span class="site-name">Yangyang's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-brands fa-fort-awesome"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-gamepad"></i><span> 好玩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="external nofollow noopener noreferrer" href="https://vue-wordle-beta.vercel.app/"><i class="fa-fw fa fa-keyboard"></i><span> Wordle</span></a></li><li><a class="site-page child" href="https://ly980408.github.io/GreedySnake/"><i class="fa-fw fa fa-cat"></i><span> 贪吃猫</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="external nofollow noopener noreferrer" href="https://travellings.cn/go.html"><i class="fa-fw fa fa-subway"></i><span> 开往</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JavaScript 实现图片滚动</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-12-10T13:13:14.000Z" title="发表于 2019-12-10 21:13:14">2019-12-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-11-23T07:09:13.274Z" title="更新于 2023-11-23 15:09:13">2023-11-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/JavaScript/">JavaScript</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id data-flag-title="JavaScript 实现图片滚动"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="定时器应用：图片滚动"><a href="#定时器应用：图片滚动" class="headerlink" title="定时器应用：图片滚动"></a>定时器应用：图片滚动</h2><p>分享一下最近学习的 JavaScript 定时器实现图片的无缝滚动。</p>
+<h3 id="间隔型定时器"><a href="#间隔型定时器" class="headerlink" title="间隔型定时器"></a>间隔型定时器</h3><p>setInterval()与 clearInterval()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timer = <span class="built_in">setInterval</span>(func, delay); <span class="comment">//第一个参数为定时器要执行的函数，第二个参数为定时器间隔，单位ms</span></span><br><span class="line"><span class="built_in">clearInterval</span>(timer); <span class="comment">//停止定时器，参数为setInterval()所启动的定时器</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="原理和方法"><a href="#原理和方法" class="headerlink" title="原理和方法"></a>原理和方法</h3><ul>
+<li><p>让 ul 一直向左移动 –&gt; 减少 left 值 –&gt; offsetLeft</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oUl.style.left&#x3D;oUl.offsetLeft-1+&#39;px&#39;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制 li</p>
+<p>我们演示的是 div 宽度可以容纳 4 张图片，而一共有 4 张图，所以我们要把 4 张图复制一份并接到后面</p>
+<ul>
+<li><p>innerHTML</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oUl.innerHTML += oUl.innerHTML;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 ul 的 width</p>
+<p>原先的 ul 宽度足以容纳内容，所以需要重新调整否则图片将分两行显示</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">oUl.style.width = aLi[<span class="number">0</span>].offsetWidth * aLi.length + <span class="string">&#x27;px&#x27;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>过界重设位置</p>
+<p>当 ul 走完半程即第一份的 4 张图全部走出容器时，重设 ul 位置，回到起点，即可实现无缝滚动</p>
+<p>判断:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (oUl.offsetLeft &lt; -oUl.offsetWidth / <span class="number">2</span>) &#123;</span><br><span class="line">  oUl.style.left = <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="图片演示"><a href="#图片演示" class="headerlink" title="图片演示"></a>图片演示</h3><ol>
+<li><p>此图为初始结构示意</p>
+<p>外层为 div 容器，内部为 ul 图片列表，4 张图片，则设置 div 宽度等于图片宽度*4</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.imgdb.cn/item/60882cf4d1a9ae528f9049d5.jpg" alt="1"></p>
+</li>
+<li><p>如图，当 ul 向左移动后右侧没有内容进行显示，故我们进行复制 li 操作</p>
+<p>（外层容器 div 设置 overflow:hidden;属性，已经走出 div 范围的部分不会显示）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.imgdb.cn/item/60882cf4d1a9ae528f904a4d.jpg" alt="2"></p>
+</li>
+<li><p>复制 li 后再进行移动则会产生如图所示效果（两侧超出内容隐藏）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.imgdb.cn/item/60882cf4d1a9ae528f904ab4.jpg" alt="3"></p>
+</li>
+<li><p>当 ul 走完一半宽度（如图），此时显示内容原始内容相同，故我们重设 ul 位置，在视觉上实现无缝滚动</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.imgdb.cn/item/60882cf4d1a9ae528f904b2f.jpg" alt="4"></p>
+</li>
+<li><p>重设 ul 位置，回到初始状态</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.imgdb.cn/item/60882cf4d1a9ae528f904bbd.jpg" alt="5"></p>
+</li>
+</ol>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>图片滚动<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">      #div1 &#123;</span><br><span class="line"><span class="css">        <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">1200px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">437px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">margin</span>: <span class="number">100px</span> auto;</span></span><br><span class="line"><span class="css">        <span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="css">        <span class="attribute">border-radius</span>: <span class="number">15px</span>;</span></span><br><span class="line">      &#125;</span><br><span class="line">      .pic-list &#123;</span><br><span class="line"><span class="css">        <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">        <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line">      &#125;</span><br><span class="line"><span class="css">      <span class="selector-class">.pic-list</span> <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">437px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">list-style</span>: none;</span></span><br><span class="line">      &#125;</span><br><span class="line"><span class="css">      <span class="selector-class">.pic-list</span> <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">437px</span>;</span></span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> oDiv = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;div1&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> oUl = oDiv.getElementsByClassName(<span class="string">&#x27;pic-list&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> aLi = oUl.getElementsByTagName(<span class="string">&#x27;li&#x27;</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        oUl.innerHTML += oUl.innerHTML; <span class="comment">//将图片列表复制一份接到后面，长度必须大于等于div一次可显示长度</span></span></span><br><span class="line"><span class="javascript">        oUl.style.width = aLi[<span class="number">0</span>].offsetWidth * aLi.length + <span class="string">&#x27;px&#x27;</span>; <span class="comment">//重新设置ul宽度=一个li宽度*li个数</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">//图片滚动函数</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">move</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">//if条件判断作用：</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">//当ul走完一半的时候重新回到原点，即可实现无缝滚动</span></span></span><br><span class="line">          if (oUl.offsetLeft &lt; -oUl.offsetWidth / 2) &#123;</span><br><span class="line"><span class="javascript">            oUl.style.left = <span class="string">&#x27;0&#x27;</span>;</span></span><br><span class="line">          &#125;</span><br><span class="line"><span class="javascript">          oUl.style.left = oUl.offsetLeft - <span class="number">1</span> + <span class="string">&#x27;px&#x27;</span>; <span class="comment">//每单位时间往左移动1px</span></span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> timer = <span class="built_in">setInterval</span>(move, <span class="number">30</span>); <span class="comment">//设置定时器，间隔30ms</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        oDiv.onmouseover = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">//鼠标移入停止滚动</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">clearInterval</span>(timer);</span></span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line"><span class="javascript">        oDiv.onmouseout = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">//鼠标移出开始滚动</span></span></span><br><span class="line"><span class="javascript">          timer = <span class="built_in">setInterval</span>(move, <span class="number">30</span>);</span></span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;div1&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;pic-list&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/1.jpg&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/2.jpg&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/3.jpg&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;img/4.jpg&quot;</span> /&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这是之前学习的利用原生 JS 定时器制作图片滚动效果，比较基础，做一下记录总结</p>
+<p>初学前端，小白一枚，有问题还望指正</p>
+<p>欢迎志同道合的小伙伴与我交流 o(<em>￣ ▽ ￣</em>)ブ</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/6087e1f1d1a9ae528f85e6bb.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/5657d3d4/" title="JavaScript DOM事件对象练习"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6087e1f1d1a9ae528f85e6bb.jpg" onerror="onerror=null;src='https://img.imgdb.cn/item/60881523d1a9ae528f40adf2.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">JavaScript DOM事件对象练习</div></div></a></div><div class="next-post pull-right"><a href="/posts/acf3d1d8/" title="Hexo+Github个人博客搭建详细教程"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" onerror="onerror=null;src='https://img.imgdb.cn/item/60881523d1a9ae528f40adf2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hexo+Github个人博客搭建详细教程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/5657d3d4/" title="JavaScript DOM事件对象练习"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/6087e1f1d1a9ae528f85e6bb.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2023-11-23</div><div class="title">JavaScript DOM事件对象练习</div></div></a></div><div><a href="/posts/aa38ac18/" title="甚至可以兼容IE8的JS事件绑定方法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/649e77051ddac507cc22f55d.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2023-11-23</div><div class="title">甚至可以兼容IE8的JS事件绑定方法</div></div></a></div><div><a href="/posts/f6df6a5d/" title="JavaScript数组的方法"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://pic.imgdb.cn/item/649e76451ddac507cc219f73.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2023-11-23</div><div class="title">JavaScript数组的方法</div></div></a></div></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E5%BA%94%E7%94%A8%EF%BC%9A%E5%9B%BE%E7%89%87%E6%BB%9A%E5%8A%A8"><span class="toc-number">1.</span> <span class="toc-text">定时器应用：图片滚动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%B4%E9%9A%94%E5%9E%8B%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">间隔型定时器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86%E5%92%8C%E6%96%B9%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">原理和方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E7%89%87%E6%BC%94%E7%A4%BA"><span class="toc-number">1.3.</span> <span class="toc-text">图片演示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">小结</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yangyang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="external nofollow noopener noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"> <div style="padding-top:8px"> <a href="https://www.travellings.cn/go.html" target="_blank" rel="external nofollow noopener noreferrer" title="开往-友链接力"> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://www.travellings.cn/assets/logo.svg" alt="开往-友链接力" width="120"> </a> </div> </div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'B9Q3diyUrpnSeEpvTYPXhVuW-gzGzoHsz',
+      appKey: '0lzTnKjh5pP2zIhaQYSGyvwE',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

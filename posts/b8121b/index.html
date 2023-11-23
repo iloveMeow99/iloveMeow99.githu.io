@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>我把公司老旧Vue2项目由Webpack改为Vite后，开发体验直接起飞了 | Yangyang's Blog</title><meta name="author" content="Yangyang"><meta name="copyright" content="Yangyang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Webpack to Vite1. 安装并配置 Vite1$ yarn add vite -D  vite 默认没有对 vue2 的支持，我们需要先安装一个插件 vite-plugin-vue2 1$ yarn add vite-plugin-vue2 -D  然后在根目录下新建 vite.conf"><link rel="shortcut icon" href="/images/cat.ico"><link rel="canonical" href="https://ly980408.github.io/posts/b8121b/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: {"limitDay":600,"position":"top","messagePrev":"温馨提示：距离文章上次更新已经过去","messageNext":"天了，部分内容可能会有出入，请留意。"},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Yangyang","link":"链接: ","source":"来源: Yangyang's Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '我把公司老旧Vue2项目由Webpack改为Vite后，开发体验直接起飞了',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-11-23 15:09:13'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mystyle.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/ali.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-brands fa-fort-awesome"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-gamepad"></i><span> 好玩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="external nofollow noopener noreferrer" href="https://vue-wordle-beta.vercel.app/"><i class="fa-fw fa fa-keyboard"></i><span> Wordle</span></a></li><li><a class="site-page child" href="https://ly980408.github.io/GreedySnake/"><i class="fa-fw fa fa-cat"></i><span> 贪吃猫</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="external nofollow noopener noreferrer" href="https://travellings.cn/go.html"><i class="fa-fw fa fa-subway"></i><span> 开往</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://pic.imgdb.cn/item/608009b6af7e6730a7d7a5b3.gif')"><nav id="nav"><span id="blog-info"><a href="/" title="Yangyang's Blog"><span class="site-name">Yangyang's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-brands fa-fort-awesome"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-gamepad"></i><span> 好玩</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="external nofollow noopener noreferrer" href="https://vue-wordle-beta.vercel.app/"><i class="fa-fw fa fa-keyboard"></i><span> Wordle</span></a></li><li><a class="site-page child" href="https://ly980408.github.io/GreedySnake/"><i class="fa-fw fa fa-cat"></i><span> 贪吃猫</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-coffee"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="external nofollow noopener noreferrer" href="https://travellings.cn/go.html"><i class="fa-fw fa fa-subway"></i><span> 开往</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">我把公司老旧Vue2项目由Webpack改为Vite后，开发体验直接起飞了</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-03-17T14:18:00.000Z" title="发表于 2022-03-17 22:18:00">2022-03-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-11-23T07:09:13.276Z" title="更新于 2023-11-23 15:09:13">2023-11-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id data-flag-title="我把公司老旧Vue2项目由Webpack改为Vite后，开发体验直接起飞了"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Webpack-to-Vite"><a href="#Webpack-to-Vite" class="headerlink" title="Webpack to Vite"></a>Webpack to Vite</h1><h2 id="1-安装并配置-Vite"><a href="#1-安装并配置-Vite" class="headerlink" title="1. 安装并配置 Vite"></a>1. 安装并配置 Vite</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> yarn add vite -D</span></span><br></pre></td></tr></table></figure>
+
+<p>vite 默认没有对 vue2 的支持，我们需要先安装一个插件 <code>vite-plugin-vue2</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> yarn add vite-plugin-vue2 -D</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在根目录下新建 <code>vite.config.js</code> 文件，添加内容：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createVuePlugin <span class="keyword">as</span> Vue2 &#125; <span class="keyword">from</span> <span class="string">&#x27;vite-plugin-vue2&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineConfig(&#123;</span><br><span class="line">  plugins: [Vue2()],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>在<code>package.json</code>中加入脚本</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;vite-dev&quot;</span>: <span class="string">&quot;vite&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vite-build&quot;</span>: <span class="string">&quot;vite build&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;vite-preview&quot;</span>: <span class="string">&quot;vite preview&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将 <code>index.html</code> 移动（or 复制）到根目录下，记得修改文件路径 <code>&lt;script type=&quot;module&quot; src=&quot;/src/main.js&quot;&gt;&lt;/script&gt;</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> yarn vite-dev</span></span><br></pre></td></tr></table></figure>
+
+<p>先把项目跑起来再说！</p>
+<h2 id="2-问题及解决方案"><a href="#2-问题及解决方案" class="headerlink" title="2.问题及解决方案"></a>2.问题及解决方案</h2><h3 id="解决引入时省略文件扩展名问题-vue-js"><a href="#解决引入时省略文件扩展名问题-vue-js" class="headerlink" title="解决引入时省略文件扩展名问题(.vue/.js)"></a>解决引入时省略文件扩展名问题(.vue/.js)</h3><p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tsc <span class="keyword">from</span> <span class="string">&#x27;tsc.vue&#x27;</span>;</span><br><span class="line"><span class="comment">// 上面的写法可以，但是下面的会报错</span></span><br><span class="line"><span class="keyword">import</span> tsc <span class="keyword">from</span> <span class="string">&#x27;tsc&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>可以通过以下设置来解决（并不建议这么做）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line">&#123;</span><br><span class="line">  resolve: &#123;</span><br><span class="line">    extensions: [<span class="string">&#x27;.js&#x27;</span>, <span class="string">&#x27;.vue&#x27;</span>];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但这其实并不是什么 bug，而是<code>Vite</code>有意这样设计的，详见<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/vitejs/vite/issues/178">issue</a>，说不定啥时候就不支持这样配置了。<br>所以最好还是老老实实把扩展名写全了吧。</p>
+<h3 id="设置别名-alias"><a href="#设置别名-alias" class="headerlink" title="设置别名 alias"></a>设置别名 alias</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line">&#123;</span><br><span class="line">  resolve: &#123;</span><br><span class="line">    alias: &#123;</span><br><span class="line">      <span class="string">&#x27;@&#x27;</span>: path.resolve(__dirname, <span class="string">&#x27;src&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>包含多个别名的导入，如：<code>@import &#39;~@/styles/global.scss&#39;</code>，同时包含了别名<code>~</code> 和<code>@</code>，<br>您可以添加别名配置 <code>&#123; find: /^~@/, replacement: path.resolve(__dirname, &#39;src&#39;) &#125;</code> 到 <code>resolve.alias</code> 配置中，并且把该项配置移到别名配置中的第一项。</p>
+<blockquote>
+<p>参考: <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/originjs/webpack-to-vite/blob/main/README-zh.md">https://github.com/originjs/webpack-to-vite/blob/main/README-zh.md</a></p>
+</blockquote>
+<h3 id="xx-is-not-defined"><a href="#xx-is-not-defined" class="headerlink" title="xx is not defined."></a>xx is not defined.</h3><p>项目中使用的环境变量报错 <code>process is not defined.</code><br><code>vite.config.js</code> 中添加：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  define: &#123;</span><br><span class="line">    <span class="string">&#x27;process.env&#x27;</span>: &#123;</span><br><span class="line">      <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>报错 <code>require is not defined.</code>，安装插件 <code>@originjs/vite-plugin-commonjs</code>，如果还需要对 <code>require.context</code> 支持，安装插件 <code>@originjs/vite-plugin-require-context</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vite.config.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; viteCommonjs &#125; <span class="keyword">from</span> <span class="string">&#x27;@originjs/vite-plugin-commonjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> ViteRequireContext <span class="keyword">from</span> <span class="string">&#x27;@originjs/vite-plugin-require-context&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  plugins: [viteCommonjs(), ViteRequireContext()],</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>至此，白屏了半天的项目，终于出现画面了。<br>当然，不要高兴的太早，看控制台还是一片红，还有很多未知的问题等着去解决呢。</p>
+</blockquote>
+<h3 id="require-动态引入图片"><a href="#require-动态引入图片" class="headerlink" title="require 动态引入图片"></a>require 动态引入图片</h3><p>如果你在模版中使用了 require 动态引入图片，<br>例如 <code>&lt;img :src=&quot;require(&#39;../assets/&#39; + imgName)&quot; /&gt;</code>, 或许你又要看到 <code>require is not defined.</code> 的报错了，<br>所以还需要继续改造我们的代码，</p>
+  <!--  -->
+
+<p>因为之前已经安装过插件去支持<code>require</code>，并且我还打算跟<code>Webpack</code>进行兼容（开发环境用<code>Vite</code>，生产环境继续用<code>Webpack</code>），<br>所以在项目中采用了以下方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 关于 require.context() 的使用可自行查阅资料</span></span><br><span class="line"><span class="keyword">const</span> images = <span class="built_in">require</span>.context(<span class="string">&#x27;@/assets/images&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> getImageUrl = <span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// key -&gt; &#x27;./image-name.png&#x27;</span></span><br><span class="line">  <span class="keyword">if</span> (!images.keys().includes(key)) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> images(key);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// usage in template:</span></span><br><span class="line"><span class="comment">// &lt;img :src=&quot;getImageUrl(&#x27;./my-image.png&#x27;)&quot; /&gt;</span></span><br><span class="line"><span class="comment">// 可以在局部使用，也可以封装为全局方法</span></span><br></pre></td></tr></table></figure>
+
+<p>或者使用<a target="_blank" rel="external nofollow noopener noreferrer" href="https://cn.vitejs.dev/guide/assets.html#new-url-url-import-meta-url">import.mate.url</a></p>
+<h2 id="3-关于-build"><a href="#3-关于-build" class="headerlink" title="3. 关于 build"></a>3. 关于 build</h2><p>做了一些兼容性调整，生产环境构建继续采用 <code>webpack</code></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/webpack/">webpack</a><a class="post-meta__tags" href="/tags/vite/">vite</a></div><div class="post_share"><div class="social-share" data-image="https://pic.imgdb.cn/item/608009b6af7e6730a7d7a5b3.gif" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/8c74c87a/" title="手把手教你用 Vite 搭建一个 Vue2 项目"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cn.vitejs.dev/logo.svg" onerror="onerror=null;src='https://img.imgdb.cn/item/60881523d1a9ae528f40adf2.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">手把手教你用 Vite 搭建一个 Vue2 项目</div></div></a></div><div class="next-post pull-right"><a href="/posts/e91772b9/" title="用 Vue 写一个Wordle游戏"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/index.jpg" onerror="onerror=null;src='https://img.imgdb.cn/item/60881523d1a9ae528f40adf2.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">用 Vue 写一个Wordle游戏</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/8c74c87a/" title="手把手教你用 Vite 搭建一个 Vue2 项目"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cn.vitejs.dev/logo.svg" alt="cover"><div class="content is-center"><div class="date"><i class="fas fa-history fa-fw"></i> 2023-11-23</div><div class="title">手把手教你用 Vite 搭建一个 Vue2 项目</div></div></a></div></div></div><hr class="custom-hr"><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Webpack-to-Vite"><span class="toc-number">1.</span> <span class="toc-text">Webpack to Vite</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AE-Vite"><span class="toc-number">1.1.</span> <span class="toc-text">1. 安装并配置 Vite</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%97%AE%E9%A2%98%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.2.</span> <span class="toc-text">2.问题及解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%BC%95%E5%85%A5%E6%97%B6%E7%9C%81%E7%95%A5%E6%96%87%E4%BB%B6%E6%89%A9%E5%B1%95%E5%90%8D%E9%97%AE%E9%A2%98-vue-js"><span class="toc-number">1.2.1.</span> <span class="toc-text">解决引入时省略文件扩展名问题(.vue&#x2F;.js)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%88%AB%E5%90%8D-alias"><span class="toc-number">1.2.2.</span> <span class="toc-text">设置别名 alias</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xx-is-not-defined"><span class="toc-number">1.2.3.</span> <span class="toc-text">xx is not defined.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#require-%E5%8A%A8%E6%80%81%E5%BC%95%E5%85%A5%E5%9B%BE%E7%89%87"><span class="toc-number">1.2.4.</span> <span class="toc-text">require 动态引入图片</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%85%B3%E4%BA%8E-build"><span class="toc-number">1.3.</span> <span class="toc-text">3. 关于 build</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Yangyang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="external nofollow noopener noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"> <div style="padding-top:8px"> <a href="https://www.travellings.cn/go.html" target="_blank" rel="external nofollow noopener noreferrer" title="开往-友链接力"> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://www.travellings.cn/assets/logo.svg" alt="开往-友链接力" width="120"> </a> </div> </div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (true){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'B9Q3diyUrpnSeEpvTYPXhVuW-gzGzoHsz',
+      appKey: '0lzTnKjh5pP2zIhaQYSGyvwE',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
